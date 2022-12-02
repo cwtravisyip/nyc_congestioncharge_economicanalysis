@@ -4,19 +4,19 @@ def run_cba(dis_rate = 0.05, charge = 14, elas = 0.5,avg_dis=17.8,cost_drive = 1
     The function return all the identified cost and benefits in a dictionary
     """
     # determine the percentage change in traffic flow with respect to price
-    delta_traffic = elas *charge/(avg_dis*cost_drive) #default set as 0.5*14/(17.8 * 1.55) =0.2537
-    delta_mil = delta_traffic * 717000 * 17.8 *260 *2
+    delta_traffic = elas *charge/(avg_dis*cost_drive) # percentage change in traffic volume default set as 0.5*14/(17.8 * 1.55) =0.2537
+    delta_mil = delta_traffic * 717000 * 2 * 17.8 *260 # annual change in the aggregate mileage
 
     # determine the common ratio for perpetual calculation (discount rate)
     cm = 1/(1+dis_rate)
     
     # determine the annual cost and benefit in million
-    B_timesaving  = (0.1471 * delta_traffic) * (717000* 260*2) *(4/6)*time_cost  /1000000
+    B_timesaving  = (0.1471 * delta_traffic) * (717000* 260*2) *(40/60)*time_cost  /1000000
     B_reliability = B_timesaving /3
     #CO2
-    co2 =  411* delta_mil * (0.033/1000) / 1000000
+    co2 =  0.411* delta_mil * 0.033 / 1000000
     #NOx
-    nox =   0.00007 *delta_mil * (81/1000) / 1000000
+    nox =   0.00007 *delta_mil * 0.081 / 1000000
     B_pollution   = (co2 + nox) 
 
     # accident
@@ -25,7 +25,6 @@ def run_cba(dis_rate = 0.05, charge = 14, elas = 0.5,avg_dis=17.8,cost_drive = 1
     # cost
     C_operational = 38.9*1.24*3.998 
     C_subsidy     = 95
-
     # upfront investment
     C_investment  = 200*1.32*1.619 
 
